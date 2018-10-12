@@ -1,6 +1,6 @@
 // 23m 3s O(nlgn)
 // 2 try
-// Why on earch was I implementing O(lgn) LCA query..?
+// Why on earth was I implementing O(lgn) LCA query..?
 
 /**
  * Definition for a binary tree node.
