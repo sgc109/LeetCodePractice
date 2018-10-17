@@ -2,7 +2,7 @@
 #include <ctime>
 #include <random>
 #include <algorithm>
-#define MAX_CNT 20000000
+#define MAX_CNT 30000000
 
 using namespace std;
 
@@ -11,9 +11,8 @@ struct Node{
     int key, val;
 };
 
-int size[MAX_CNT + 3];
 Node nodes[MAX_CNT + 3];
-int cnt_node;
+int cnt_node = 0;
 Node* get_node(int key, int val){
     Node* ret = &nodes[cnt_node++];
     ret->nxt = NULL;
@@ -43,7 +42,6 @@ void insert(int key, int val){
         cur = cur->nxt;
     }
 
-    size[h]++;
 
     if(cur == NULL) {
         buck[h] = ins;
@@ -57,10 +55,10 @@ Node* find(int key){
     Node* ret = NULL;
     int h = get_hash(key);
     Node* cur = buck[h];
-    while(cur != NULL && cur->key == key){
+    while(cur != NULL && cur->key != key){
         cur = cur->nxt;
     }
-    return cur->key == key ? cur : NULL;
+    return cur == NULL ? NULL : cur;
 }
 
 void remove(int key){
@@ -83,9 +81,8 @@ void remove(int key){
 }
 
 int main(){
+    for(int i = 0; i < MAX_CNT; i++) buck[i] = NULL;
     srand(time(NULL));
-
-    int mx_cnt = 0;
 
     clock_t start = clock();
     for(int i = 0; i < 20000000; i++){
@@ -93,14 +90,9 @@ int main(){
         find(rand());
         remove(rand());
     }
-    for(int i = 0; i < MAX_CNT; i++) mx_cnt = max(mx_cnt, size[i]);
-    cout << "max cnt : " << mx_cnt << endl;
 
     clock_t end = clock();
 
     cout << "time consuming : " << double(end - start) / CLOCKS_PER_SEC << 's' << endl;
-//    for(int i = 0; i < 10000; i++){
-//        cout << size[i] << endl;
-//    }
     return 0;
 }
