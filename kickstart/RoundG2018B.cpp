@@ -60,14 +60,10 @@ int main(){
         ll acc = 0;
 
         for(auto x : pts) {
-//            printf("----------start-----------\n");
-//            printf("x : %lld\n", x);
-//            printf("acc : %lld, cnt : %d\n", acc, cnt);
             ll diff = prv - x;
             ll cacc = acc + cnt * (prv - x) + open[x] + cnt;
             while(qth < Q && cacc >= qrs[qth].k) {
                 ll lo = 0, hi = diff;
-//                printf("cacc : %lld, curk : %lld\n", cacc, qrs[qth].k);
                 while(lo < hi) {
                     ll mid = (lo + hi) / 2;
                     ll tmp = acc + cnt * (mid + 1);
@@ -81,7 +77,6 @@ int main(){
             acc += cnt * diff + close[x];
             cnt += open[x] - close[x];
             prv = x;
-//            printf("----------end-----------\n");
         }
 
         for(int i = qth; i < Q; i++) {
@@ -90,7 +85,6 @@ int main(){
 
         ll sum = 0;
         for(int i = 1; i <= Q; i++) {
-//            printf("ans[%d] : %lld\n", i, ans[i]);
             sum = sum + ans[i] * i;
         }
 
